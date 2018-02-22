@@ -1,0 +1,20 @@
+{
+    "name": "kkse/quick",
+    "description": "phpquick",
+    "keywords": ["library"],
+    "homepage": "https://github.com/kkse/phpquick",
+    "type": "library",
+    "license": "Apache-2.0",
+    "authors": [
+        {
+            "name": "kkse",
+            "email": "214466734@qq.com"
+        }
+    ],
+    "require": {
+        "php": ">=5.6",
+    },
+    "autoload": {
+        "psr-4": {"kkse\\quick\\": "src"}
+    },
+}
