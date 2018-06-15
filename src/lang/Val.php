@@ -56,4 +56,29 @@ final class Val
     {
         return intval(bcmul($yuan, 100, 0));
     }
+
+    /**
+     * 根据定义获取动态数据的值
+     * @param mixed $definition  定义
+     * @param bool $returnFail
+     * @return mixed
+     */
+    public static function getDynamicVal($definition, $returnFail = false)
+    {
+        return DefinitionVal::formatVal($definition, $returnFail);
+    }
+
+    /**
+     * 判断是否动态数据
+     * @param $definition
+     * @return bool
+     */
+    public static function isDynamicVal($definition)
+    {
+        $obj = DefinitionVal::format($definition);
+        if (!$obj || $obj->getType() == DefinitionVal::TYPE_VALUE) {
+            return false;
+        }
+        return true;
+    }
 }

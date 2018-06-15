@@ -9,7 +9,7 @@ namespace kkse\quick;
  * Date: 2018/2/12
  * Time: 16:45
  */
-final class Preset
+final class Preset extends lang\Preset
 {
     /**
      * 预定义的函数别名处理列表
@@ -22,12 +22,4 @@ final class Preset
         'to_yuan_price' => [lang\Val::class, 'toYuanPrice'],
         'to_fen_price' => [lang\Val::class, 'toFenPrice'],
     ];
-
-    /**
-     * 处理预设配置
-     */
-    public static function handle()
-    {
-        lang\Func::batchAlias(self::$func_map);//批量别名函数
-    }
 }

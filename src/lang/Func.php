@@ -127,11 +127,12 @@ final class Func
         $fproto .= ')';
         $fcall .= ')';
 
-        do {
+        /*do {
             $fcall_name = '$func'.mt_rand();
         } while (in_array($fcall_name, $pnames));//获取一个不冲突的方法名变量
 
-        $fcallcode = $fcall_name.' = '.var_export($function_name, true).'; return '.$fcall_name;
+        $fcallcode = $fcall_name.' = '.var_export($function_name, true).'; return '.$fcall_name;*/
+        $fcallcode = 'return '.$function_name;
 
         //有没有命名空间都要加上命名空间
         $f = sprintf('namespace %1$s{function %2$s{%3$s;}}', $alias_namespace, $fproto, $fcallcode.$fcall);
@@ -150,15 +151,21 @@ final class Func
      * 批量处理别名
      * @param array $func_map       批量处理数组，格式：'alias'=>'func'
      * @param bool $isReturn        是否返回格式化后的内容
-     * @return array
+     * @return string
      */
     public static function batchAlias(array $func_map, bool $isReturn = false)
     {
-        $ret = [];
-        foreach ($func_map as $alias => $func) {
-            $ret[$alias] = self::functionAlias($func, $alias, $isReturn);
+        if ($isReturn) {
+            $str = '';
+            foreach ($func_map as $alias => $func) {
+                $str .= self::functionAlias($func, $alias, true).PHP_EOL;
+            }
+            return $str;
+        } else {
+            foreach ($func_map as $alias => $func) {
+                self::functionAlias($func, $alias, false);
+            }
         }
-
-        return $ret;
+        return '';
     }
 }
