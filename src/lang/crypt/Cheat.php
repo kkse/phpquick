@@ -42,7 +42,7 @@ class Cheat
         $this->key === self::AUTO and $this->cipher->setKey(random_bytes(32));
         $this->iv === self::AUTO and $this->cipher->genIv(true);
 
-        $dedata = $this->cipher->decrypt($data);
+        $dedata = $this->cipher->encrypt($data);
         if (!$dedata) return $dedata;
 
         $text = $this->getMode();
