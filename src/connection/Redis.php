@@ -32,6 +32,8 @@ class Redis extends \Redis
         $this->persistent = $persistent;
         $this->auth = $auth;
 
+
+
         //, $select = 0, $prefix = ''
         //$this->select = $select;
         //$this->prefix = $prefix;
