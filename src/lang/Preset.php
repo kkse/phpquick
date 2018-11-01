@@ -36,7 +36,8 @@ class Preset
     final public static function handle(array $option = [])
     {
         if (!is_null(static::$cache_dir)) {
-            $postfix = $option?serialize($option):'';
+            $all = [$option,static::$func_map,static::$constant_map];
+            $postfix = md5(serialize($all));
             $file_name = md5(static::class.$postfix).'.php';
             $file = new Storage(static::$cache_dir.'/'.$file_name);
             //使用缓存文件加快响应

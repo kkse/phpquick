@@ -66,8 +66,8 @@ class Redis extends \Redis
         }
 
         $handlers_info = self::$handlers[$this->handler_key];
+        /** @var \Redis $handler */
         $handler = $handlers_info[0];
-        assert($handler instanceof \Redis);
         if ($this->select != $handlers_info[1]) {
             $handler->select($this->select);
             self::$handlers[$this->handler_key][1] = $this->select;
@@ -3633,8 +3633,8 @@ class Redis extends \Redis
         if ($this->inhandler) {
             self::$handlers[$this->handler_key][2]--;
             if (self::$handlers[$this->handler_key][2] <= 0) {
+                /** @var \Redis $handler */
                 $handler = self::$handlers[$this->handler_key][0];
-                assert($handler instanceof \Redis);
                 $handler->close();
                 unset(self::$handlers[$this->handler_key]);
             }

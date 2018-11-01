@@ -23,7 +23,7 @@ final class Val
     public static function uintval($val)
     {
         $val = intval($val);
-        return $val>0?$val:0;
+        return $val > 0 ? $val : 0;
     }
 
     /**
@@ -34,7 +34,7 @@ final class Val
     public static function bintval($val)
     {
         $val = intval($val);
-        return $val?1:0;
+        return $val ? 1 : 0;
     }
 
     /**
@@ -59,7 +59,7 @@ final class Val
 
     /**
      * 根据定义获取动态数据的值
-     * @param mixed $definition  定义
+     * @param mixed $definition 定义
      * @param bool $returnFail
      * @return mixed
      */
