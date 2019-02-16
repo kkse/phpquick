@@ -138,10 +138,12 @@ class Date
         return $obj;
     }
 
+
     /**
      * @param int $year 农历年
-     * @param SolarTerm|int $st 节气
+     * @param SolarTerm|int $st  节气
      * @return Date
+     * @throws \Exception
      */
     public static function createFromSolarTerm(int $year, $st)
     {
@@ -293,8 +295,11 @@ class Date
         return intval($dt->format('z'));
     }
 
+
     /**
      * 返回公历
+     * @return \DateTime
+     * @throws \Exception
      */
     public function toDateTime()
     {
@@ -614,9 +619,11 @@ class Date
     }
 
 
+
     /**
      * @param bool $isGre 是否公历年
      * @return int
+     * @throws \Exception
      */
     public function getYear($isGre = false): int
     {
@@ -628,6 +635,10 @@ class Date
     }
 
 
+    /**
+     * @return int
+     * @throws \Exception
+     */
     public function getYearDays()
     {
         $dt = $this->toDateTime();
@@ -670,10 +681,12 @@ class Date
         return $infos;
     }
 
+
     /**
      * 获取所在节气
      * @param bool $is_first 为true时，只有第一天才会返回
      * @return SolarTerm|null
+     * @throws \Exception
      */
     public function getSolarTerm($is_first = false)
     {
@@ -697,10 +710,12 @@ class Date
         return SolarTerm::getObj($pos + SolarTerm::TYPE_LESSER_COLD);
     }
 
+
     /**
      * 获取数九信息
      * @param bool $is_name 是否返回数九名称
-     * @return bool|int  false 表示不属于数九，0-8 表示数九索引, 或者数九名称
+     * @return bool|int|mixed 表示不属于数九，0-8 表示数九索引, 或者数九名称
+     * @throws \Exception
      */
     public function getTheBeginningOfWinterFrost(bool $is_name = false)
     {
@@ -737,9 +752,11 @@ class Date
         return false;
     }
 
+
     /**
      * 是否数九的第一天
      * @return bool
+     * @throws \Exception
      */
     public function isTheBeginningOfWinterFrost()
     {
@@ -778,6 +795,7 @@ class Date
     /**
      * 是否入梅
      * @return bool
+     * @throws \Exception
      */
     public function isRuMei()
     {
@@ -788,6 +806,7 @@ class Date
     /**
      * 是否出梅
      * @return bool
+     * @throws \Exception
      */
     public function isChuMei()
     {
@@ -798,6 +817,7 @@ class Date
     /**
      * 是否在梅雨中
      * @return bool
+     * @throws \Exception
      */
     public function inMei()
     {
@@ -807,11 +827,11 @@ class Date
     }
 
 
-
     /**
      * 是否初伏
      * @param bool $is_first
      * @return bool
+     * @throws \Exception
      */
     public function isChuFu($is_first = false){
         $et_index = $this->getYear(true) - self::$START_YEAR;
@@ -829,6 +849,7 @@ class Date
      * 是否中伏
      * @param bool $is_first
      * @return bool
+     * @throws \Exception
      */
     public function isZhongFu($is_first = false){
         $et_index = $this->getYear(true) - self::$START_YEAR;
@@ -847,6 +868,7 @@ class Date
      * 是否末伏
      * @param bool $is_first
      * @return bool
+     * @throws \Exception
      */
     public function isMoFu($is_first = false){
         $et_index = $this->getYear(true) - self::$START_YEAR;
@@ -881,25 +903,34 @@ class Date
         }
     }
 
+
     /**
      * 时间比较
      * @param Date $date
      * @return int
+     * @throws \Exception
      */
     public function cmp(Date $date)
     {
         return strcmp($this->toDateTime()->format('Y-m-d'), $date->toDateTime()->format('Y-m-d'));
     }
 
+    /**
+     * @param \DateInterval $interval
+     * @return Date
+     * @throws \Exception
+     */
     public function add(\DateInterval $interval)
     {
         return self::createFromDateTime($this->toDateTime()->add($interval));
     }
 
+
     /**
      * 返回两个时间的相差日
      * @param Date $date
-     * @return int
+     * @return float|int
+     * @throws \Exception
      */
     public function diffDay(Date $date)
     {

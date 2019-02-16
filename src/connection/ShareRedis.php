@@ -1,10 +1,8 @@
 <?php
-namespace syslayer\basic;
+namespace kkse\quick\connection;
 
 use Iterator;
 use Redis;
-use think\App;
-use think\Log;
 
 /**
  * 共享的redis操作对象
@@ -212,10 +210,6 @@ class ShareRedis
             $handler->select($this->select);
             $handler->setOption(Redis::OPT_PREFIX, $this->prefix);
             self::$handlers[$this->handler_key] = [$handler, $this->select, 0, $this->prefix];
-
-            if (App::$debug) {
-                Log::record(sprintf('[ CACHE ] INIT redis %s:%s',  $this->host, $this->port) , 'info');
-            }
         }
 
         if (!$this->inhandler) {

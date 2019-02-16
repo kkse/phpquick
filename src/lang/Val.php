@@ -16,6 +16,15 @@ namespace kkse\quick\lang;
 final class Val
 {
     /**
+     * @param $prefix
+     * @return mixed
+     */
+    public static function uuid($prefix = '')
+    {
+        return str_replace('.', '', uniqid($prefix, true));
+    }
+
+    /**
      * 只要正数的函数
      * @param mixed $val
      * @return int
@@ -59,9 +68,10 @@ final class Val
 
     /**
      * 根据定义获取动态数据的值
-     * @param mixed $definition 定义
+     * @param $definition
      * @param bool $returnFail
-     * @return mixed
+     * @return bool|mixed|null|object
+     * @throws \ReflectionException
      */
     public static function getDynamicVal($definition, $returnFail = false)
     {
@@ -80,5 +90,28 @@ final class Val
             return false;
         }
         return true;
+    }
+
+
+    /**
+     * 字符串命名风格转换
+     * type 0 将 Java 风格转换为 C 的风格 1 将 C 风格转换为 Java 的风格
+     * @access public
+     * @param  string  $name    字符串
+     * @param  integer $type    转换类型
+     * @param  bool    $ucfirst 首字母是否大写（驼峰规则）
+     * @return string
+     */
+    public static function parseName($name, $type = 0, $ucfirst = true)
+    {
+        if ($type) {
+            $name = preg_replace_callback('/_([a-zA-Z])/', function ($match) {
+                return strtoupper($match[1]);
+            }, $name);
+
+            return $ucfirst ? ucfirst($name) : lcfirst($name);
+        }
+
+        return strtolower(trim(preg_replace("/[A-Z]/", "_\\0", $name), "_"));
     }
 }

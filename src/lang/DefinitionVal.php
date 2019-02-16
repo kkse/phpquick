@@ -123,6 +123,10 @@ class DefinitionVal
         return null;
     }
 
+    /**
+     * @return array
+     * @throws \ReflectionException
+     */
     protected function getParamVals()
     {
         $params = [];
@@ -133,6 +137,10 @@ class DefinitionVal
         return $params;
     }
 
+    /**
+     * @return mixed|null|object
+     * @throws \ReflectionException
+     */
     public function getVal()
     {
         if (!$this->docall) {
@@ -182,9 +190,10 @@ class DefinitionVal
 
     /**
      * 根据定义获取动态数据的值
-     * @param mixed $definition  定义
+     * @param $definition
      * @param bool $returnFail
-     * @return mixed
+     * @return bool|mixed|null|object
+     * @throws \ReflectionException
      */
     public static function formatVal($definition, $returnFail = false)
     {
